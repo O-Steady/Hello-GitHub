@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body{
+				padding-top : 100px;
+				padding-left : 300px;
+			}
+			div{
+				margin : auto;
+				width : auto;
+				display : inline-block;
+			}
+			.highClass{
+				height : 415px;
+				float : left;
+			}
+		</style>
+		<script>
+			ang = -90;
+			i = 0;
+			album = new Array("1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg");
+			k = 0;
+			up = 1;
+			function init(nbr)
+			{
+				setTimeout("init("+nbr+")",15);
+				if ((ang % 15) == 0 && i < nbr){
+					ob = document.createElement("div");
+					ob.id = i;
+					ob.style.width = 504/nbr+"px";
+					ob.style.height = "415px";
+					ob.style.backgroundPosition = ""+i/(nbr-1)*100+"%";
+					document.getElementById("theID").appendChild(ob);
+					i++;
+				}
+				j = 0;
+				while (document.getElementById(j)){
+					document.getElementById(j).style.transform = "perspective(800px) rotateY("+ang+"deg)";
+					document.getElementById(j).style.backgroundImage = "url("+album[k%7]+")";
+					j++;
+				}
+				if (up == 1){
+					if (ang == 0)
+						up = 0;
+					ang++;
+				}
+				else{
+					if (ang == -90){
+						up = 1;
+						for (h = 0 ; h < nbr ; h++){
+							document.getElementById("theID").removeChild(document.getElementById(h));
+							console.log(h);
+							
+							}
+						i = 0;
+					}
+					ang--;
+				}
+				if (ang == -90)
+					k++;
+			}
+		</script>
+	</head>
+	<body onLoad = "init(6)">
+		<div id = "theID" ></div>
+	</body>
+</html>
